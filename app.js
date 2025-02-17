@@ -25,20 +25,40 @@ var connection = mysql.createConnection({
     database: 'join_us'
   });
 
-var q = 'SELECT CURDATE() as time, CURDATE() AS date, NOW() AS now';
-
-connection.query(q, function (error, results, fields) {
-  if (error) throw error;
-  console.log(results[0].time);  
-  console.log(results[0].date);
-  console.log(results[0].now);
-
-});
-
-
-connection.query('SELECT 1 + 5 AS answer', function (error, results, fields) {
+  // to count the total number of users in the database:
+  var q = 'SELECT COUNT(*) AS total FROM users ';
+  connection.query(q, function (error, results, fields) {
     if (error) throw error;
-    console.log('The solution is: ', results);
+    console.log(results[0].total);
   });
+
+// inserting dynamically generated data into the database:
+
+// var person = {
+//     email: faker.internet.email(),
+//     created_at: faker.date.past()
+// };
+ 
+// var end_result = connection.query('INSERT INTO users SET ?', person, function(err, result) {
+//   if (err) throw err;
+//   console.log(result);
+// });
+
+
+// The code to insert 500 random users into the database:
+var data = [];
+for(var i = 0; i < 500; i++){
+    data.push([
+        faker.internet.email(),
+        faker.date.past()
+    ]);
+}
+ 
+var q = 'INSERT INTO users (email, created_at) VALUES ?';
+ 
+connection.query(q, [data], function(err, result) {
+  console.log(err);
+  console.log(result);
+});
 
 connection.end();   // This line is used to close the connection to the database.
