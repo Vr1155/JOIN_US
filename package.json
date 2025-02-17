@@ -1,0 +1,15 @@
+{
+  "name": "join_us",
+  "version": "1.0.0",
+  "description": "Join Us is a mailing list signup app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vaibhav",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^9.5.0",
+    "mysql2": "^3.12.0"
+  }
+}
